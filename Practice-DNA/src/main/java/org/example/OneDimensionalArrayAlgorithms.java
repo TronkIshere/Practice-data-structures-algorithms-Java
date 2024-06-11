@@ -1,6 +1,6 @@
 package org.example;
 
-public class One_Dimensional_Array {
+public class OneDimensionalArrayAlgorithms {
     static int[] dummyArray = {9, 1, 8, 2, 7, 3, 6, 4, 5};
     static int[] SortedDummyArray = {1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024};
 
