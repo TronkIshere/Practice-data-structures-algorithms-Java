@@ -3,6 +3,8 @@ package org.example;
 import java.util.List;
 import java.util.SplittableRandom;
 
+
+//Video for reference https://www.youtube.com/watch?v=2ZLl8GAk1X4&t=6019s
 public class BasicLinkedAndAlgorithms {
     private ListNode head;
 
@@ -170,6 +172,92 @@ public class BasicLinkedAndAlgorithms {
         return mainPtr;
     }
 
+    public void removeDuplicates(){
+        if(head == null) return;
+        ListNode current = head;
+        while (current != null && current.next != null){
+            if(current.data == current.next.data) {
+                current.next = current.next.next;
+            } else {
+                current = current.next;
+            }
+        }
+    }
+
+    public ListNode removeDuplicates(int value){
+        ListNode newNode = new ListNode(value);
+        if(head == null) return newNode;
+
+        ListNode current = head;
+        ListNode temp = null;
+
+        while (current != null && current.data < newNode.data) {
+            temp = current;
+            current = current.next;
+        }
+
+        newNode.next = current;
+        temp.next = newNode;
+        return head;
+    }
+
+    public void deleteNode(int key){
+        ListNode current = head;
+        ListNode temp = null;
+
+        if(current != null && current.data == key){
+            head = current.next;
+            return;
+        }
+
+        while(current != null && current.data != key){
+            temp = current;
+            current = current.next;
+        }
+
+        if(current == null) return ;
+
+        temp.next = current.next;
+    }
+
+    //Check if Linked have loop
+    public boolean containsLoop() {
+        ListNode fastPtr = head;
+        ListNode slowPtr = head;
+        while (fastPtr != null && fastPtr.next != null) {
+            fastPtr = fastPtr.next.next;
+            slowPtr = slowPtr.next;
+
+            if(slowPtr == fastPtr) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public ListNode startNodeInALoop(){
+        ListNode fastPtr = head;
+        ListNode slowPtr = head;
+
+        while (fastPtr != null && fastPtr.next != null) {
+            fastPtr = fastPtr.next.next;
+            slowPtr = slowPtr.next;
+
+            if (fastPtr == slowPtr)
+                return getStartingNode(slowPtr);
+        }
+        return null;
+    }
+
+        public ListNode getStartingNode(ListNode slowPtr){
+            ListNode temp = head;
+            while (temp != slowPtr){
+                temp = temp.next;
+                slowPtr = slowPtr.next;
+            }
+            return temp;
+        }
+
     public static void main(String[] args) {
         BasicLinkedAndAlgorithms sll = new BasicLinkedAndAlgorithms();
         sll.head = new ListNode(10);
@@ -211,8 +299,12 @@ public class BasicLinkedAndAlgorithms {
         sll.head = sll.reverse(sll.head);
         sll.display();
 
-        System.out.println("Get 2nth node from end");
+        System.out.println("Get 2nth node from end:");
         ListNode ntnNodeFromEnd = sll.getNthNodeFromEnd(2);
         System.out.println("Nth node from end is: " + ntnNodeFromEnd.data);
+
+        System.out.println("Delete node by key == 10:");
+        sll.deleteNode(10);
+        sll.display();
     }
 }
