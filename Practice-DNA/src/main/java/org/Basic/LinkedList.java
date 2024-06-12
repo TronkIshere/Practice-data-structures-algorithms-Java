@@ -1,11 +1,8 @@
-package org.example;
-
-import java.util.List;
-import java.util.SplittableRandom;
+package org.Basic;
 
 
 //Video for reference https://www.youtube.com/watch?v=2ZLl8GAk1X4&t=6019s
-public class BasicLinkedAndAlgorithms {
+public class LinkedList {
     private ListNode head;
 
     private static class ListNode {
@@ -329,7 +326,7 @@ public class BasicLinkedAndAlgorithms {
     }
 
     public static void main(String[] args) {
-        BasicLinkedAndAlgorithms sll = new BasicLinkedAndAlgorithms();
+        LinkedList sll = new LinkedList();
         sll.head = new ListNode(10);
         ListNode second = new ListNode(1);
         ListNode third = new ListNode(8);
@@ -378,12 +375,12 @@ public class BasicLinkedAndAlgorithms {
         sll.display();
 
         // Create two dummy sorted LinkedList
-        BasicLinkedAndAlgorithms dummyLinkedList1 = new BasicLinkedAndAlgorithms();
+        LinkedList dummyLinkedList1 = new LinkedList();
         dummyLinkedList1.insertLast(1);
         dummyLinkedList1.insertLast(4);
         dummyLinkedList1.insertLast(8);
 
-        BasicLinkedAndAlgorithms dummyLinkedList2 = new BasicLinkedAndAlgorithms();
+        LinkedList dummyLinkedList2 = new LinkedList();
         dummyLinkedList2.insertLast(3);
         dummyLinkedList2.insertLast(5);
         dummyLinkedList2.insertLast(8);
@@ -397,16 +394,16 @@ public class BasicLinkedAndAlgorithms {
         dummyLinkedList2.display();
 
         System.out.println("Merge two sorted LinkedList:");
-        BasicLinkedAndAlgorithms result = new BasicLinkedAndAlgorithms();
+        LinkedList result = new LinkedList();
         result.head = merge(dummyLinkedList1.head, dummyLinkedList2.head);
         result.display();
 
         // sum two dummy sorted LinkedList
-        BasicLinkedAndAlgorithms dummyLinkedList3 = new BasicLinkedAndAlgorithms();
+        LinkedList dummyLinkedList3 = new LinkedList();
         dummyLinkedList3.insertLast(1);
         dummyLinkedList3.insertLast(4);
 
-        BasicLinkedAndAlgorithms dummyLinkedList4 = new BasicLinkedAndAlgorithms();
+        LinkedList dummyLinkedList4 = new LinkedList();
         dummyLinkedList4.insertLast(4);
         dummyLinkedList4.insertLast(1);
         System.out.println("Add two LinkedList :");

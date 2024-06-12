@@ -1,8 +1,8 @@
-package org.example;
+package org.Basic;
 
 import java.util.HashMap;
 
-public class BasicHashmap {
+public class Hashmap {
     public static void main(String[] arg){
         HashMap<String, Integer> empIds = new HashMap<>();
         empIds.put("John", 12345);
