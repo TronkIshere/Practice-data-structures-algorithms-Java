@@ -84,6 +84,92 @@ public class BasicLinkedAndAlgorithms {
         return temp;
     }
 
+    public ListNode deleteLast(){
+        if(head == null || head.next == null) {
+            return head;
+        }
+
+        ListNode current = head;
+        ListNode previous = null;
+
+        while(current.next != null) {
+            previous = current;
+            current = current.next;
+        }
+        current.next = null;
+        return current;
+    }
+
+    public void deleteInSpecificLocation(int position){
+        if(position == 1) {
+            head = head.next;
+        } else {
+            ListNode previous = head;
+            int count = 1;
+            while(count < position - 1){
+                previous = previous.next;
+                count++;
+            }
+
+            ListNode current = previous.next;
+            previous.next = current.next;
+        }
+    }
+
+    public boolean findListNode(ListNode head, int searchKey) {
+        if(head == null) {
+            return false;
+        }
+
+        ListNode current = head;
+        while(current != null) {
+            if(current.data == searchKey) return true;
+            current = current.next;
+        }
+        return  false;
+    }
+
+    public ListNode reverse(ListNode head){
+        if(head == null){
+            return head;
+        }
+
+        ListNode current = head;
+        ListNode previous = null;
+        ListNode next = null;
+
+        while (current != null) {
+            next = current.next;
+            current.next = previous;
+            previous = current;
+            current = next;
+        }
+        return previous;
+    }
+
+    public ListNode getNthNodeFromEnd(int n){
+        if(head == null) return null;
+        if(n <= 0)
+            throw new IllegalArgumentException("Invalid value: n = " + n);
+        ListNode mainPtr = head;
+        ListNode refPtr = head;
+
+        int count = 0;
+
+        while (count < n){
+            if(refPtr == null)
+                throw new IllegalArgumentException(n + "is greater than number of nodes in list");
+            refPtr = refPtr.next;
+            count++;
+        }
+
+        while (refPtr != null) {
+            refPtr = refPtr.next;
+            mainPtr = mainPtr.next;
+        }
+        return mainPtr;
+    }
+
     public static void main(String[] args) {
         BasicLinkedAndAlgorithms sll = new BasicLinkedAndAlgorithms();
         sll.head = new ListNode(10);
@@ -104,5 +190,29 @@ public class BasicLinkedAndAlgorithms {
 
         sll.deleteFirst();
         System.out.println("deleteFirst: "+ sll.length());
+        sll.display();
+
+        sll.deleteLast();
+        System.out.println("deleteLast: "+ sll.length());
+        sll.display();
+
+        sll.deleteInSpecificLocation(3);
+        System.out.println("deleteLast: "+ sll.length());
+        sll.display();
+
+        System.out.println("Search for key == 1");
+        if(sll.findListNode(sll.head, 1))
+            System.out.println("Search Key found!!!");
+        else
+            System.out.println("Search Key not found!!!");
+
+        System.out.println("Reverse: ");
+        //Remember to update the head of the list
+        sll.head = sll.reverse(sll.head);
+        sll.display();
+
+        System.out.println("Get 2nth node from end");
+        ListNode ntnNodeFromEnd = sll.getNthNodeFromEnd(2);
+        System.out.println("Nth node from end is: " + ntnNodeFromEnd.data);
     }
 }
