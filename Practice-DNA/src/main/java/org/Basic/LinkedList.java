@@ -3,9 +3,9 @@ package org.Basic;
 
 //Video for reference https://www.youtube.com/watch?v=2ZLl8GAk1X4&t=6019s
 public class LinkedList {
-    private ListNode head;
+    public ListNode head;
 
-    private static class ListNode {
+    public static class ListNode {
         private int data; //Generic Type
         private ListNode next;
 
