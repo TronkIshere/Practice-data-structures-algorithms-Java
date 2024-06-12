@@ -258,6 +258,76 @@ public class BasicLinkedAndAlgorithms {
             return temp;
         }
 
+    public void removeLoop(){
+        ListNode fastPtr = head;
+        ListNode slowPtr = head;
+
+        while (fastPtr != null && fastPtr.next != null) {
+            fastPtr = fastPtr.next.next;
+            slowPtr = slowPtr.next;
+
+            if (fastPtr == slowPtr){
+                removeLoop(slowPtr);
+                return;
+            }
+        }
+    }
+
+        public void removeLoop(ListNode slowPtr) {
+            ListNode temp = head;
+            while(temp != slowPtr){
+                temp = temp.next;
+                slowPtr = slowPtr.next;
+            }
+            slowPtr.next = null;
+        }
+
+    public static ListNode merge(ListNode a, ListNode b){
+        // a --> 1 --> 3 --> 5 --> null
+        // b --> 2 --> 4 --> 6 --> null
+        // result --> 1 --> 2 --> 3 --> 4 --> 5 --> 6 --> null
+        ListNode dummy = new ListNode(0);
+        ListNode tail = dummy;
+        while (a != null && b != null){
+            if (a.data <= b.data){
+                tail.next = a;
+                a = a.next;
+            } else {
+                tail.next = b;
+                b = b.next;
+            }
+            tail = tail.next;
+        }
+
+        if (a == null){
+            tail.next = b;
+        } else {
+            tail.next = a;
+        }
+
+        return dummy.next;
+    }
+
+    public static ListNode addTwoLinkedList(ListNode a, ListNode b){
+        ListNode dummy = new ListNode(0);
+        ListNode tail = dummy;
+        int carry = 0;
+        while (a != null || b != null) {
+            int x =(a != null) ? a.data : 0;
+            int y =(b != null) ? b.data : 0;
+            int sum = carry + x + y;
+            carry = sum / 10;
+            tail.next = new ListNode(sum % 10);
+            tail = tail.next;
+            if(a != null) a = a.next;
+            if(b != null) b = b.next;
+        }
+        if(carry > 0){
+            tail.next =new ListNode(carry);
+        }
+        return dummy.next;
+    }
+
     public static void main(String[] args) {
         BasicLinkedAndAlgorithms sll = new BasicLinkedAndAlgorithms();
         sll.head = new ListNode(10);
@@ -306,5 +376,41 @@ public class BasicLinkedAndAlgorithms {
         System.out.println("Delete node by key == 10:");
         sll.deleteNode(10);
         sll.display();
+
+        // Create two dummy sorted LinkedList
+        BasicLinkedAndAlgorithms dummyLinkedList1 = new BasicLinkedAndAlgorithms();
+        dummyLinkedList1.insertLast(1);
+        dummyLinkedList1.insertLast(4);
+        dummyLinkedList1.insertLast(8);
+
+        BasicLinkedAndAlgorithms dummyLinkedList2 = new BasicLinkedAndAlgorithms();
+        dummyLinkedList2.insertLast(3);
+        dummyLinkedList2.insertLast(5);
+        dummyLinkedList2.insertLast(8);
+        dummyLinkedList2.insertLast(9);
+        dummyLinkedList2.insertLast(14);
+        dummyLinkedList2.insertLast(18);
+
+        System.out.println("Sorted LinkedList 1: ");
+        dummyLinkedList1.display();
+        System.out.println("Sorted LinkedList 2: ");
+        dummyLinkedList2.display();
+
+        System.out.println("Merge two sorted LinkedList:");
+        BasicLinkedAndAlgorithms result = new BasicLinkedAndAlgorithms();
+        result.head = merge(dummyLinkedList1.head, dummyLinkedList2.head);
+        result.display();
+
+        // sum two dummy sorted LinkedList
+        BasicLinkedAndAlgorithms dummyLinkedList3 = new BasicLinkedAndAlgorithms();
+        dummyLinkedList3.insertLast(1);
+        dummyLinkedList3.insertLast(4);
+
+        BasicLinkedAndAlgorithms dummyLinkedList4 = new BasicLinkedAndAlgorithms();
+        dummyLinkedList4.insertLast(4);
+        dummyLinkedList4.insertLast(1);
+        System.out.println("Add two LinkedList :");
+        result.head = addTwoLinkedList(dummyLinkedList3.head, dummyLinkedList4.head);
+        result.display();
     }
 }
