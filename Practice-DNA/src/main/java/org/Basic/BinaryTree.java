@@ -1,5 +1,7 @@
 package org.Basic;
 
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Stack;
 
 public class BinaryTree {
@@ -86,16 +88,75 @@ public class BinaryTree {
         System.out.print(root.data + " ");
     }
 
+    public void postOrderUseStack(){
+        TreeNode current = root;
+        Stack<TreeNode> stack = new Stack<>();
+
+        while(current != null || !stack.isEmpty()){
+            if(current != null) {
+                stack.push(current);
+                current = current.left;
+            } else {
+                TreeNode temp = stack.peek().right;
+                if(temp == null){
+                    temp = stack.pop();
+                    System.out.print(temp.data + " ");
+                    while(!stack.isEmpty() && temp == stack.peek().right){
+                        temp = stack.pop();
+                        System.out.print(temp.data + " ");
+                    }
+                } else {
+                    current = temp;
+                }
+            }
+        }
+    }
+
+    public int findMax(TreeNode root){
+        if(root == null) return Integer.MIN_VALUE;
+        int result = root.data;
+        int left = findMax(root.left);
+        int right = findMax(root.right);
+
+        if(left > result)
+            result = left;
+        if(right > result)
+            result = right;
+        return result;
+    }
+
+    public void levelOrder(){
+        if(root == null) return;
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+
+        while(!queue.isEmpty()){
+            TreeNode temp = queue.poll();
+            System.out.print(temp.data + " ");
+            if(temp.left != null)
+                queue.offer(temp.left);
+            if(temp.right != null)
+                queue.offer(temp.right);
+        }
+    }
+
     public static void main(String[] args){
         BinaryTree binaryTree = new BinaryTree();
         binaryTree.createBinaryTree();
         binaryTree.preOder(binaryTree.root);
         System.out.println("");
 
-        System.out.println("Pre-oder binary tree by Stack");
+        System.out.println("Pre-oder binary tree by Stack: ");
         binaryTree.preOderUseStack();
+        System.out.println("");
 
         System.out.println("Post oder binary: ");
         binaryTree.postOder(binaryTree.root);
+        System.out.println("");
+
+        System.out.print("Find max number in binary tree: ");
+        int result = binaryTree.findMax(binaryTree.root);
+        System.out.println(result);
+        System.out.println("");
     }
 }
