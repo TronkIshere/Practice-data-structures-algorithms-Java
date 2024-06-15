@@ -185,6 +185,36 @@ public class LeetCodeLearningMaterials {
             return result;
         }
 
+    public int maxSubArraySum(int[] arr, int k){
+        int maxSum = 0;
+        int windowSum = 0;
+        int start = 0;
+        for(int end = 0; end < arr.length; end++){
+            windowSum = windowSum + arr[end];
+            if(end >= k-1){
+                maxSum = Math.max(maxSum, windowSum);
+                windowSum = windowSum - arr[start];
+                start++;
+            }
+        }
+        return maxSum;
+    }
+
+    public int lengthOfLongestSubstring(String s){
+        Map<Character, Integer> map = new HashMap<>();
+        int maxLength = 0;
+        int start = 0;
+        for(int end = 0; end < s.length(); end++){
+            char rightChar = s.charAt(end);
+            if(map.containsKey(rightChar)){
+                start = Math.max(start, map.get(rightChar) + 1);
+            }
+            map.put(rightChar, end);
+            maxLength = Math.max(maxLength, end - start + 1);
+        }
+        return maxLength;
+    }
+
     public static void main (String[] args){
 
     }
