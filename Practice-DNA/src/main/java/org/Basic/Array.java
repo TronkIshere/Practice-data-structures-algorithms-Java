@@ -1,12 +1,32 @@
 package org.Basic;
 
-public class OneDimensionalArray {
+public class Array {
     static int[] dummyArray = {9, 1, 8, 2, 7, 3, 6, 4, 5};
     static int[] SortedDummyArray = {1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024};
 
     public static void main(String[] args) {
         int index = interpolationSearch(SortedDummyArray, 16);
         System.out.println(index);
+    }
+
+    public void sort(int[] arr){
+        int n = arr.length;
+        boolean isSwapped;
+
+        for(int i = 0; i < n - 1; i++){
+            isSwapped = false;
+            for(int j = 0; j < n - 1 - i; j++){
+                if(arr[j] > arr[j + 1]){
+                    int temp = arr[j];
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = temp;
+                    isSwapped = true;
+                }
+            }
+            if(isSwapped == false) {
+                break;
+            }
+        }
     }
 
     public static int linearSearch(int[] array, int value){
@@ -99,6 +119,30 @@ public class OneDimensionalArray {
         }
     }
 
+    public int[] mergeTwoArray(int[] arr1, int[] arr2, int n, int m){
+        int[] result = new int[n + m];
+        int i = 0; int j = 0; int k = 0;
+        while (i < n && j < m){
+            if(arr1[i] < arr2[j]){
+                result[k] = arr1[i];
+                i++;
+            } else {
+                result[k] = arr2[j];
+                j++;
+            }
+            k++;
+        }
+        while(i < n){
+            result[k] = arr1[i];
+            i++; k++;
+        }
+        while(j < m){
+            result[k] = arr2[j];
+            j++; k++;
+        }
+        return result;
+    }
+
     //Recursion: đệ quy
 
     //**************** mergeSort ****************
@@ -159,6 +203,42 @@ public class OneDimensionalArray {
         }
     }
 
+    //**************** Merge Sort use Call Stalk ****************
+    public void sort(int[] arr, int[] temp, int low, int high){
+        if(low < high){ //base case
+            int mid = low + high + (high - low) / 2; // overflow condition (low + high) / 2;
+            sort(arr, temp, low, mid);
+            sort(arr, temp, mid + 1, high);
+            merge(arr, temp, low, mid, high);
+        }
+    }
+
+    private void merge(int[] arr, int[] temp, int low, int mid, int high){
+        for(int i = low; i <= high; i++){
+            temp[i] = low;
+        }
+        int i = low; // traverse left sorted subarray;
+        int j = mid + 1; // traverse right sorted subarray;
+        int k = low; // will merge both arrays into original array (arr)
+
+        while(i <= mid && j <= high){
+            if(temp[i] <= temp[j]){
+                arr[k] = temp[i];
+                i++;
+            } else {
+                arr[k] = temp[j];
+                j++;
+            }
+            k++;
+        }
+
+        while(i <= mid){
+            arr[k] = temp[i];
+            k++;
+            i++;
+        }
+    }
+
     //**************** QuickSort ****************
     public static void quickSort(int[] array, int start, int end) {
         if(end <= start) return; //base case
@@ -184,5 +264,30 @@ public class OneDimensionalArray {
         array[i] = array[end];
         array[end] = temp;
         return i;
+    }
+
+    //**************** Three number sort ****************
+    void threeNumberSort(int[] arr){
+        int i = 0;
+        int j = 0;
+        int k =arr.length - 1;
+        while(i <= k){
+            if(arr[i] == 0){
+                swap(arr, i, j);
+                i++;
+                j++;
+            } else if(arr[i] == 1){
+                i++;
+            } else if(arr[i] == 2){
+                swap(arr, i, k);
+                k--;
+            }
+        }
+    }
+
+    public void swap(int[] arr, int i, int j){
+        int temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
     }
 }
