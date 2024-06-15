@@ -203,6 +203,26 @@ public class Array {
         }
     }
 
+
+    // This is hard, you should turn back when you are ready
+    public void arrangeMaxMin(int[] arr){
+        int maxldx = arr.length - 1;
+        int minldx = 0;
+        int max = arr[maxldx] + 1;
+        for(int i = 0; i < arr.length; i++){
+            if(i % 2 == 0){
+                arr[i] = arr[i] + (arr[maxldx] % max) * max;
+                maxldx--;
+            } else {
+                arr[i] = arr[i] + (arr[minldx] % max) * max;
+                minldx++;
+            }
+        }
+        for(int i = 0; i < arr.length; i++){
+            arr[i] = arr[i] / max;
+        }
+    }
+
     //**************** Merge Sort use Call Stalk ****************
     public void sort(int[] arr, int[] temp, int low, int high){
         if(low < high){ //base case
@@ -264,6 +284,27 @@ public class Array {
         array[i] = array[end];
         array[end] = temp;
         return i;
+    }
+
+    public static int[] sortedSquares(int[] arr){
+        // Two pointer technique
+        int n = arr.length;
+        int i = 0;
+        int j = n - 1;
+        int[] result = new int[n];
+
+        // {-4, -1, 0, 3} -> {0, 1, 9, 16}
+
+        for(int k = n - 1; k >= 0; k--){
+            if(Math.abs(arr[i]) > Math.abs(arr[j])){
+                result[k] = arr[i] * arr[i];
+                i++;
+            } else {
+                result[k] = arr[j] * arr[j];
+                j--;
+            }
+        }
+        return result;
     }
 
     //**************** Three number sort ****************
