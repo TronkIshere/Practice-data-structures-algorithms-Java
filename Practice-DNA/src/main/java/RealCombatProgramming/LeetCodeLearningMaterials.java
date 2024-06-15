@@ -1,11 +1,8 @@
 package RealCombatProgramming;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
-public class LeetCode {
+public class LeetCodeLearningMaterials {
     public static int[] twoSum(int[] numbers, int target) {
         int[] result = new int[2];
         Map<Integer, Integer> map = new HashMap<>();
@@ -98,6 +95,95 @@ public class LeetCode {
         }
         return isNegative ? reverse * -1 : reverse;
     }
+
+    int removeElement(int[] nums, int val) {
+        int i = 0;
+        for(int j = 0; j < nums.length; j++){
+            if(nums[j] != val){
+                nums[i] = nums[j];
+                i++;
+            }
+        }
+        return i;
+    }
+
+    public int removeDuplicates(int[] nums){
+        int i = 1;
+        for(int j = 1; i < nums.length; i++){
+            if(nums[j-1] != nums[j]){
+                nums[i] = nums[j];
+                i++;
+            }
+        }
+        return i;
+    }
+
+    public void threeSum(int[] arr, int target){
+        Arrays.sort(arr);
+        for(int i = 0; i < arr.length - 2; i++){
+            int j = i + 1;
+            int k = arr.length - 1;
+            while(j < k){
+                int sum = arr[i] + arr[j] + arr[k];
+                if(sum == target){
+                    System.out.println(arr[i] + "," + arr[j] + "," + arr[k]);
+                    j++;
+                    k--;
+                } else if(sum < target) {
+                    j++;
+                } else {
+                    k--;
+                }
+            }
+        }
+    }
+
+    public int[] findProduct(int[] arr){
+        int temp = 1;
+        int[] result = new int[arr.length];
+        for(int i = 0; i < arr.length; i++){
+            result[i] = temp;
+            temp = temp * arr[i];
+        }
+        temp = 1;
+        for(int i = arr.length - 1; i >= 0; i--){
+            result[i] = result[i] * temp;
+            temp = temp * arr[i];
+        }
+        return result;
+    }
+
+    public List<Integer> maxSlidingWindow(int[] arr, int k){
+        int[] ngeArr = nextGreaterElement(arr);
+        List<Integer> result = new ArrayList<>();
+        for(int i = 0; i <= arr.length - k; i++){
+            int j = i;
+            while(ngeArr[j] < i + k){
+                j = ngeArr[j];
+            }
+            result.add(arr[j]);
+        }
+        return result;
+    }
+
+        public int[] nextGreaterElement(int[] arr){
+            int [] result = new int[arr.length];
+            Stack<Integer> stack = new Stack<>();
+            for(int i = arr.length - 1; i >= 0; i--){
+                if(!stack.isEmpty()){
+                    while(!stack.isEmpty() && arr[stack.peek()] <= arr[i]){
+                        stack.pop();
+                    }
+                }
+                if(stack.isEmpty()) {
+                    result[i] = arr.length;
+                } else {
+                    result[i] = stack.peek();
+                }
+                stack.push(i);
+            }
+            return result;
+        }
 
     public static void main (String[] args){
 
