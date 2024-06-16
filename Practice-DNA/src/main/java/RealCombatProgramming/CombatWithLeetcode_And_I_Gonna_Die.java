@@ -1,5 +1,6 @@
 package RealCombatProgramming;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -95,10 +96,37 @@ public class CombatWithLeetcode_And_I_Gonna_Die {
                 case 'D': num = 500; break;
                 case 'M': num = 1000; break;
             }
+            //Đây là cách xác định ký tự đặc biệt
             if (4 * num < ans) ans -= num;
             else ans += num;
         }
         return ans;
+    }
+
+    public String longestCommonPrefix(String[] strs) {
+        for(String str : strs)
+            if(str.isEmpty())
+                return "";
+
+        String firstString = strs[0];
+        strs = Arrays.copyOfRange(strs, 1, strs.length);
+        int count = 0, minLength = 0, resultLength = firstString.length();
+
+        for(String str : strs){
+            if(firstString.length() > str.length())
+                minLength = str.length();
+            else
+                minLength = firstString.length();
+
+            for(int i = 0; i < minLength; i++){
+                if(firstString.charAt(i) == str.charAt(i)) count++;
+                else break;
+            }
+            if(count < resultLength) resultLength = count;
+            count = 0;
+        }
+        String result = firstString.substring(0, resultLength);
+        return result;
     }
 
     public static void main(String[] args){
