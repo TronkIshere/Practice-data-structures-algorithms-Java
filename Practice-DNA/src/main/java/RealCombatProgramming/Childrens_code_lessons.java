@@ -1,5 +1,6 @@
 package RealCombatProgramming;
 
+import java.util.Random;
 import java.util.Scanner;
 
 public class Childrens_code_lessons {
@@ -125,7 +126,6 @@ public class Childrens_code_lessons {
                 s2 += nums % 10;
             }
             nums = nums / 10;
-
             s1 += nums % 10;
             nums = nums / 10;
         }
@@ -135,8 +135,69 @@ public class Childrens_code_lessons {
             System.out.println("Sin khong hop le");
     }
 
+    public void exercise11() {
+        Random random = new Random();
+        String human, computer = null;
+        int h = 0, c = 0;
+        while (true){
+            System.out.println("Nhap ky tu (b-d-k), ky tu khac de thoat: ");
+            human = sc.nextLine();
+
+            switch (human){
+                case "b":
+                    switch ( random.nextInt(3) ) {
+                        case 0:
+                            computer = "b";
+                            break;
+                        case 1:
+                            computer = "d";
+                            h++;
+                            break;
+                        case 2:
+                            computer = "k";
+                            c++;
+                    }
+                    break;
+                case "d":
+                    switch ( random.nextInt(3) ) {
+                        case 0:
+                            computer = "b";
+                            c++;
+                            break;
+                        case 1:
+                            computer = "d";
+                            break;
+                        case 2:
+                            computer = "k";
+                            h++;
+                    }
+                    break;
+                case "k":
+                    switch ( random.nextInt(3) ) {
+                        case 0:
+                            computer = "b";
+                            h++;
+                            break;
+                        case 1:
+                            computer = "d";
+                            c++;
+                            break;
+                        case 2:
+                            computer = "k";
+                    }
+                    break;
+                default:
+                    return;
+            }
+            System.out.println("Computer: " + computer);
+            System.out.println("Ty so: " + h + " - " + c);
+        }
+    }
+
+
+
     public static void main(String[] args){
         Childrens_code_lessons main = new Childrens_code_lessons();
-        main.exercise10();
+        main.exercise11();
     }
 }
