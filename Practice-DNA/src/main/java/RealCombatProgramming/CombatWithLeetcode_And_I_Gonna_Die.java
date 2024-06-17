@@ -205,6 +205,25 @@ public class CombatWithLeetcode_And_I_Gonna_Die {
         return count;
     }
 
+    public int removeElement(int[] nums, int val) {
+        if(nums.length == 0) return 0;
+
+        int valid_size = 0;
+        for(int i = 0; i < nums.length; i++){
+            if(nums[i] != val){
+                nums[valid_size] = nums[i];
+                valid_size++;
+            }
+        }
+
+        return valid_size;
+    }
+
+    public int strStr(String haystack, String needle) {
+        int index = haystack.indexOf(needle);
+        return index;
+    }
+
     public static void main(String[] args){
         CombatWithLeetcode_And_I_Gonna_Die cb = new CombatWithLeetcode_And_I_Gonna_Die();
 
