@@ -108,14 +108,13 @@ public class LeetCodeLearningMaterials {
     }
 
     public int removeDuplicates(int[] nums){
-        int i = 1;
-        for(int j = 1; i < nums.length; i++){
-            if(nums[j-1] != nums[j]){
-                nums[i] = nums[j];
-                i++;
+        int pos = 0;
+        for(int i = 1; i < nums.length; i ++)
+            if(nums[i] != nums[pos]){
+                nums[pos] = nums[i];
+                pos++;
             }
-        }
-        return i;
+        return pos;
     }
 
     public void threeSum(int[] arr, int target){
