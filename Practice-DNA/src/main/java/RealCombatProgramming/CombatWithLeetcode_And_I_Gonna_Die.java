@@ -224,6 +224,62 @@ public class CombatWithLeetcode_And_I_Gonna_Die {
         return index;
     }
 
+    public int searchInsert(int[] nums, int target) {
+        if(nums[0] >= target) return 0;
+
+        int result = 0;
+        for(int i = 1; i < nums.length; i++){
+            if(nums[i] == target) return i;
+            if(nums[i-1] <= target && nums[i] >= target) return i;
+        }
+        return nums.length;
+    }
+
+    public int lengthOfLastWord(String s) {
+        if(s.length() == 0) return 0;
+        s = s.trim();
+        int count = 0;
+        for(int i = s.length() - 1; i >= 0; i--){
+            if(s.charAt(i) == ' ') break;
+            count++;
+        }
+        return count;
+    }
+
+    public int[] plusOne(int[] digits) {
+        int temp = 0;
+
+        if(digits[digits.length - 1] != 9) {
+            digits[digits.length - 1] += 1;
+            return digits;
+        }
+
+        if(digits[digits.length - 1] == 9){
+            digits[digits.length - 1] = 0;
+            temp = 1;
+        }
+
+        for(int i = digits.length - 2; i >= 0; i--){
+            if(temp != 0){
+                digits[i] += temp;
+                temp = 0;
+            }
+            if(digits[i] == 10){
+                digits[i] = 0;
+                temp = 1;
+            }
+        }
+        if (temp != 0){
+            int[] result = new int[digits.length + 1];
+            result[0] = 1;
+            for(int i = 1; i < result.length; i++)
+                result[i] = digits[i-1];
+            return result;
+        } else {
+            return digits;
+        }
+    }
+
     public static void main(String[] args){
         CombatWithLeetcode_And_I_Gonna_Die cb = new CombatWithLeetcode_And_I_Gonna_Die();
 
