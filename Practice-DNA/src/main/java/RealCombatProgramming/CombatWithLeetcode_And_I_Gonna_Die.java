@@ -280,8 +280,82 @@ public class CombatWithLeetcode_And_I_Gonna_Die {
         }
     }
 
+    public String addBinary(String a, String b) {
+        StringBuilder sb = new StringBuilder();
+        int i = a.length() - 1;
+        int j = b.length() - 1;
+        int carry = 0;
+
+        while(i >= 0 || j >= 0) {
+            int sum = carry;
+
+            // việc - '0' biến kí tự thành số
+            if (i>=0) sum += a.charAt(i) - '0';
+            if (j>=0) sum += b.charAt(j) - '0';
+
+            sb.append(sum % 2); //Nếu như sum%2 thì giá trị là 0, ngược lại là 1
+            carry = sum / 2;
+
+            i--;
+            j--;
+        }
+
+        if(carry != 0) sb.append(carry);
+        return sb.reverse().toString();
+    }
+
+    public int mySqrt(int x) {
+        int result = (int) Math.sqrt(x);
+        return result;
+    }
+
+    /*public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        ListNode dummy = new ListNode(0);
+        ListNode tail = dummy;
+        int carry = 0;
+        while (l1 != null || l2 != null) {
+            int x =(l1 != null) ? l1.val : 0;
+            int y =(l2 != null) ? l2.val : 0;
+            int sum = carry + x + y;
+            carry = sum / 10;
+            tail.next = new ListNode(sum % 10);
+            tail = tail.next;
+            if(l1 != null) l1 = l1.next;
+            if(l2 != null) l2 = l2.next;
+        }
+        if(carry > 0){
+            tail.next =new ListNode(carry);
+        }
+        return dummy.next;
+    }*/
+
+    // Terrible way
+    public int singleNumber(int[] nums) {
+        if(nums.length == 1) return nums[0];
+        for (int i = 0; i < nums.length; i++){
+            int count = 0;
+            for (int j = 0; j < nums.length; j++){
+                if(nums[i] == nums[j]) {
+                    count++;
+                }
+            }
+            if(count == 1)
+                return nums[i];
+        }
+        return nums[0];
+    }
+
+    //https://www.youtube.com/watch?v=eXl0HBm2RrA
+    //Good and very faster way
+    public int singleNumberBestWay(int[] nums) {
+        int result = 0;
+        for(int i = 0; i < nums.length; i++)
+            result ^= nums[i];
+        return result;
+    }
+
     public static void main(String[] args){
         CombatWithLeetcode_And_I_Gonna_Die cb = new CombatWithLeetcode_And_I_Gonna_Die();
-
+        cb.singleNumber();
     }
 }
