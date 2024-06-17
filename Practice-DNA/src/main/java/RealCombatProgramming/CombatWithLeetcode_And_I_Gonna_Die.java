@@ -1,8 +1,6 @@
 package RealCombatProgramming;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class CombatWithLeetcode_And_I_Gonna_Die {
     public int[] twoSum(int[] nums, int target) {
@@ -127,6 +125,37 @@ public class CombatWithLeetcode_And_I_Gonna_Die {
         }
         String result = firstString.substring(0, resultLength);
         return result;
+    }
+
+    public boolean isValid(String s) {
+        Stack<Character> str = new Stack<>();
+
+        for(int i = 0; i < s.length(); i++){
+            char currentChar = s.charAt(i);
+            if (currentChar == '(' || currentChar == '[' || currentChar == '{') {
+                str.push(currentChar);
+                continue;
+            }
+
+            if(str.isEmpty()) return false;
+
+            char check = str.pop();
+            switch (currentChar){
+                case ')':
+                    if(check == '{' || check == '[')
+                        return false;
+                    break;
+                case '}':
+                    if(check == '(' || check == '[')
+                        return false;
+                    break;
+                case ']':
+                    if(check == '{' || check == '(')
+                        return false;
+                    break;
+            }
+        }
+        return (str.isEmpty());
     }
 
     public static void main(String[] args){
