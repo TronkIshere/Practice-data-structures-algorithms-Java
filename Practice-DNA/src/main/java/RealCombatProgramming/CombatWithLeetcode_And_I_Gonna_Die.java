@@ -171,28 +171,28 @@ public class CombatWithLeetcode_And_I_Gonna_Die {
      * }
      */
 
-//    public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
-//        ListNode dummy = new ListNode(0);
-//        ListNode tail = dummy;
-//        while (list1 != null && list2 != null){
-//            if (list1.val <= list2.val){
-//                tail.next = list1;
-//                list1 = list1.next;
-//            } else {
-//                tail.next = list2;
-//                list2 = list2.next;
-//            }
-//            tail = tail.next;
-//        }
-//
-//        if (list1 == null){
-//            tail.next = list2;
-//        } else {
-//            tail.next = list1;
-//        }
-//
-//        return dummy.next;
-//    }
+    /*public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
+        ListNode dummy = new ListNode(0);
+        ListNode tail = dummy;
+        while (list1 != null && list2 != null){
+            if (list1.val <= list2.val){
+                tail.next = list1;
+                list1 = list1.next;
+            } else {
+                tail.next = list2;
+                list2 = list2.next;
+            }
+            tail = tail.next;
+        }
+
+        if (list1 == null){
+            tail.next = list2;
+        } else {
+            tail.next = list1;
+        }
+
+        return dummy.next;
+    }*/
 
     public int removeDuplicates(int[] nums) {
         int pos = 0, count = 1;
@@ -363,6 +363,35 @@ public class CombatWithLeetcode_And_I_Gonna_Die {
         }
         return true;
     }
+
+    public int climbStairs(int n) {
+        if(n == 0) return 0;
+        int firstNumber = 0;
+        int secondNumber = 1;
+        int result = 0;
+        for(int i = 0; i < n; i++){
+            result = firstNumber + secondNumber;
+            firstNumber = secondNumber;
+            secondNumber = result;
+        }
+        return result;
+    }
+
+    /*public ListNode reverseList(ListNode head) {
+        if(head == null) return head;
+
+        ListNode current = head;
+        ListNode previous = null;
+        ListNode next = null;
+
+        while (current != null) {
+            next = current.next;
+            current.next = previous;
+            previous = current;
+            current = next;
+        }
+        return previous;
+    }*/
 
     public static void main(String[] args){
         CombatWithLeetcode_And_I_Gonna_Die cb = new CombatWithLeetcode_And_I_Gonna_Die();
