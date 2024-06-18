@@ -393,6 +393,44 @@ public class CombatWithLeetcode_And_I_Gonna_Die {
         return previous;
     }*/
 
+    /*public boolean hasCycle(ListNode head) {
+        ListNode fastPtr = head;
+        ListNode slowPtr = head;
+        while (fastPtr != null && fastPtr.next != null) {
+            fastPtr = fastPtr.next.next;
+            slowPtr = slowPtr.next;
+
+            if(slowPtr == fastPtr) {
+                return true;
+            }
+        }
+        return false;
+    }*/
+
+    //Assume the environment does not allow you to store 64-bit integers (signed or unsigned).
+    //
+    public int reverse(int x) {
+        int temp = x, length = 0, flag = 0;
+        long result = 0l;
+        while (temp != 0){
+            length++;
+            temp = temp / 10;
+        }
+
+        for(int i = 0; i < length; i++){
+            result = result * 10 + (x % 10);
+            x /= 10;
+        }
+
+        //Check xem số có nằm trong giá trị int theo đề không
+        if (result < Integer.MIN_VALUE || result > Integer.MAX_VALUE){
+            return 0;
+        } else {
+            int finalResult = (int) result;
+            return finalResult;
+        }
+    }
+
     public static void main(String[] args){
         CombatWithLeetcode_And_I_Gonna_Die cb = new CombatWithLeetcode_And_I_Gonna_Die();
 
