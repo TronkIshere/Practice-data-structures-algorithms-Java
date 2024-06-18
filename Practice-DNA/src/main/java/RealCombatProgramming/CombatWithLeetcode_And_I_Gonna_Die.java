@@ -354,6 +354,16 @@ public class CombatWithLeetcode_And_I_Gonna_Die {
         return result;
     }
 
+    public boolean isPalindromeString(String s) {
+        if(s == " ") return true;
+        s = s.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
+        for(int i = 0; i < s.length() / 2; i++){
+            if(s.charAt(i) != s.charAt(s.length() - i - 1))
+                return false;
+        }
+        return true;
+    }
+
     public static void main(String[] args){
         CombatWithLeetcode_And_I_Gonna_Die cb = new CombatWithLeetcode_And_I_Gonna_Die();
 
