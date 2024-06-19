@@ -431,8 +431,71 @@ public class CombatWithLeetcode_And_I_Gonna_Die {
         }
     }
 
+    public void mergeTwoSortedArray(int[] nums1, int m, int[] nums2, int n) {
+        int[] result = new int[n + m];
+        int length = result.length - 1;
+        while(m > 0 && n >0){
+            if(nums1[m - 1] < nums2[n - 1]){
+                result[length] = nums2[n - 1];
+                n--;
+            } else {
+                result[length] = nums1[m - 1];
+                m--;
+            }
+            length--;
+        }
+        if(m > 0){
+            for(int i = length - 1; i >= 0; i--){
+                result[i] = nums1[m - 1];
+                m--;
+            }
+        } else {
+            for(int i = length - 1; i >= 0; i--){
+                result[i] = nums2[n - 1];
+                n--;
+            }
+        }
+        nums1 = result;
+    }
+
+    public void merge() {
+        int[] nums1 = new int[]{1,2,3,4}; int m = 4;
+        int[] nums2 = new int[]{1,1,3}; int n = 3;
+
+        int i = 0, a = 0, b = 0;
+        int[] result = new int[m];
+        while(a < m  || b < n){
+            if(nums1[a] < nums2[b]){
+                result[i] = nums1[a];
+                a++; i++;
+            } else if(nums2[b] < nums1[a]){
+                result[i] = nums2[b];
+                b++; i++;
+            } else {
+                a++; b++;
+            }
+            System.out.println(result[i]);
+        }
+        for(int num : result) System.out.print(num + " ");
+    }
+
+    public void myPow(double x, int n) {
+        double result = Math.pow(2.1, 3);
+        System.out.println(result);
+    }
+
+    public int divide(int dividend, int divisor) {
+        if(dividend <= Integer.MIN_VALUE && divisor == -1)
+            System.out.println((Integer.MIN_VALUE + 1) * -1);
+
+
+        int result = dividend / divisor;
+        System.out.println(result);
+        return result;
+    }
+
     public static void main(String[] args){
         CombatWithLeetcode_And_I_Gonna_Die cb = new CombatWithLeetcode_And_I_Gonna_Die();
-
+        cb.divide(-2147483648, -1);
     }
 }
