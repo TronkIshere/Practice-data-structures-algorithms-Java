@@ -519,6 +519,38 @@ public class CombatWithLeetcode_And_I_Gonna_Die {
         return head;
     }*/
 
+   /* public boolean isSameTree(TreeNode p, TreeNode q) {
+        return identicalTrees(p, q);
+    }
+
+        public boolean identicalTrees(TreeNode a, TreeNode b){
+            if (a == null && b == null) return true;
+            if (a != null && b != null)
+                return (a.val == b.val
+                        && identicalTrees(a.left, b.left)
+                        && identicalTrees(a.right, b.right));
+            return false;
+        }*/
+
+    /*public int maxDepth(TreeNode root) {
+        return depthCount(root);
+    }
+        public int depthCount(TreeNode root){
+            if (root == null) return 0;
+            int ldepth = depthCount(root.left);
+            int rdepth = depthCount(root.right);
+            if(ldepth > rdepth)
+                return (ldepth + 1);
+            else
+                return (rdepth + 1);
+        }*/
+
+    //https://www.youtube.com/watch?v=jMpi-_NWfZM
+    /*public int maxDepth(TreeNode node){
+        if(node == null) ? return 0 : return 1 + Math.max(maxDepth(node.left), maxDepth(node.right));
+    }*/
+
+
     public static void main(String[] args){
         CombatWithLeetcode_And_I_Gonna_Die cb = new CombatWithLeetcode_And_I_Gonna_Die();
 
