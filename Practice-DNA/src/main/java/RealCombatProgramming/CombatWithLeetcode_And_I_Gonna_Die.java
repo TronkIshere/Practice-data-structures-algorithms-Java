@@ -431,7 +431,10 @@ public class CombatWithLeetcode_And_I_Gonna_Die {
         }
     }
 
-    public void mergeTwoSortedArray(int[] nums1, int m, int[] nums2, int n) {
+    public double findMedianSortedArrays(int[] nums1, int[] nums2) {
+        int m = nums1.length;
+        int n = nums2.length;
+        double finalResult;
         int[] result = new int[n + m];
         int length = result.length - 1;
         while(m > 0 && n >0){
@@ -444,39 +447,44 @@ public class CombatWithLeetcode_And_I_Gonna_Die {
             }
             length--;
         }
-        if(m > 0){
-            for(int i = length - 1; i >= 0; i--){
-                result[i] = nums1[m - 1];
-                m--;
-            }
-        } else {
-            for(int i = length - 1; i >= 0; i--){
-                result[i] = nums2[n - 1];
-                n--;
-            }
+        while (m > 0) {
+            result[length] = nums1[m - 1];
+            m--; length--;
         }
-        nums1 = result;
+
+        while (n > 0) {
+            result[length] = nums2[n - 1];
+            n--; length--;
+        }
+        if (result.length%2 == 0) {
+            finalResult = (result[result.length / 2] + result[result.length / 2 - 1]) / 2.0;
+            return finalResult;
+        }
+        else {
+            finalResult = result[result.length/2];
+            return finalResult;
+        }
     }
 
-    public void merge() {
-        int[] nums1 = new int[]{1,2,3,4}; int m = 4;
-        int[] nums2 = new int[]{1,1,3}; int n = 3;
+    public void merge(int[] nums1, int m, int[] nums2, int n) {
+        int i = m - 1;
+        int j = n - 1;
+        int k = m + n - 1;
 
-        int i = 0, a = 0, b = 0;
-        int[] result = new int[m];
-        while(a < m  || b < n){
-            if(nums1[a] < nums2[b]){
-                result[i] = nums1[a];
-                a++; i++;
-            } else if(nums2[b] < nums1[a]){
-                result[i] = nums2[b];
-                b++; i++;
+        while (i >= 0 && j >= 0) {
+            if (nums1[i] > nums2[j]) {
+                nums1[k] = nums1[i];
+                i--;
             } else {
-                a++; b++;
+                nums1[k] = nums2[j];
+                j--;
             }
-            System.out.println(result[i]);
+            k--;
         }
-        for(int num : result) System.out.print(num + " ");
+        while (j >= 0) {
+            nums1[k] = nums2[j];
+            j--; k--;
+        }
     }
 
     public void myPow(double x, int n) {
@@ -496,6 +504,6 @@ public class CombatWithLeetcode_And_I_Gonna_Die {
 
     public static void main(String[] args){
         CombatWithLeetcode_And_I_Gonna_Die cb = new CombatWithLeetcode_And_I_Gonna_Die();
-        cb.divide(-2147483648, -1);
+
     }
 }
