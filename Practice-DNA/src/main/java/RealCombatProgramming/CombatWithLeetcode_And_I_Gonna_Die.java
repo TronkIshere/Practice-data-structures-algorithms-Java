@@ -502,6 +502,23 @@ public class CombatWithLeetcode_And_I_Gonna_Die {
         return result;
     }
 
+    /*public ListNode deleteDuplicates(ListNode head) {
+        if (head == null) return null;
+        ListNode current = head.next;
+        ListNode pos = head;
+        while(current != null) {
+            if(current.val == pos.val){
+                current = current.next;
+            } else {
+                pos.next = current;
+                pos = pos.next;
+                current = current.next;
+            }
+        }
+        pos.next = null;
+        return head;
+    }*/
+
     public static void main(String[] args){
         CombatWithLeetcode_And_I_Gonna_Die cb = new CombatWithLeetcode_And_I_Gonna_Die();
 
