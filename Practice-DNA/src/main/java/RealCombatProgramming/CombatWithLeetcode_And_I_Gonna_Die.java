@@ -550,6 +550,63 @@ public class CombatWithLeetcode_And_I_Gonna_Die {
         if(node == null) ? return 0 : return 1 + Math.max(maxDepth(node.left), maxDepth(node.right));
     }*/
 
+    public void isPowerOfTwo() {
+        int n = 8;
+        if(n == 1) System.out.println(true);
+        if(Math.sqrt(n)%2 != 0) System.out.println(false);
+        else System.out.println(true);
+    }
+
+
+    //https://www.geeksforgeeks.org/program-to-find-whether-a-given-number-is-power-of-2/
+    //Bài toán này thao tác với bits để kiểm tra, khá là hay
+    public boolean isPowerOfTwo(int n) {
+        if(n == 0 || n <= Integer.MIN_VALUE) return false;
+        if((n & (~(n - 1))) == n) return true;
+        else return false;
+    }
+
+    private Set<Integer> seen = new HashSet<>();
+    public boolean isHappy(int n) {
+        if (n == 1) return true;
+        if (seen.contains(n)) return false;
+
+        seen.add(n);
+
+        int result = 0;
+        while(n != 0){
+            result += Math.pow(n % 10, 2);
+            n = n / 10;
+        }
+        return isHappy(result);
+    }
+
+    public void reverseString(char[] s) {
+        int length = s.length -1 ;
+        for(int i = 0; i <= length / 2; i ++) {
+            char temp = s[i];
+            s[i] = s[length - i];
+            s[length - i] = temp;
+        }
+    }
+
+    /*LinkedList sll = new LinkedList();
+    public List<Integer> preorderTraversal(TreeNode root) {
+        if(root == null) return sll;
+        sll.add(root.val);
+        preorderTraversal(root.left);
+        preorderTraversal(root.right);
+        return sll;
+    }*/
+
+    /*LinkedList sll = new LinkedList();
+    public List<Integer> postorderTraversal(TreeNode root) {
+        if(root == null) return sll;
+        postorderTraversal(root.left);
+        postorderTraversal(root.right);
+        sll.add(root.val);
+        return sll;
+    }*/
 
     public static void main(String[] args){
         CombatWithLeetcode_And_I_Gonna_Die cb = new CombatWithLeetcode_And_I_Gonna_Die();
