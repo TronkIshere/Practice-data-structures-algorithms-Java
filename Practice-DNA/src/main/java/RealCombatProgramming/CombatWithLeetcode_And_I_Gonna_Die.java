@@ -608,6 +608,47 @@ public class CombatWithLeetcode_And_I_Gonna_Die {
         return sll;
     }*/
 
+    public int titleToNumber(String columnTitle) {
+        int result = 0; int loc = 1;
+        int length = columnTitle.length() - 1;
+        for(int i = length; i >= 0; i--){
+            char temp = columnTitle.charAt(i);
+            result += (temp - 'A' + 1) * loc;
+            loc *= 26;
+        }
+        return result;
+    }
+
+    public String convertToTitle(int columnNumber) {
+        StringBuilder columnName = new StringBuilder();
+        while(columnNumber > 0){
+            columnNumber--;
+            int remainder = columnNumber % 26;
+            char letter = (char) (remainder + 'A');
+            columnName.insert(0, letter);
+            columnNumber = columnNumber / 26;
+        }
+        return columnName.toString();
+    }
+
+    //https://codelearn.io/sharing/regular-expression-trong-java
+    public boolean isMatch(String s, String p) {
+        p = p.replaceAll("\\*{2}", "");
+        return s.matches(p);
+    }
+
+
+    public boolean canJump(int[] nums) {
+        if(nums.length == 1 && nums[0] == 1) return true;
+        int length = nums.length - 1;
+        int numTarget = length;
+        for(int i = length - 1; i >= 0; i--){
+            if(nums[i] + i >= numTarget) numTarget = i;
+        }
+        if(numTarget == 0) return true;
+        return false;
+    }
+
     public static void main(String[] args){
         CombatWithLeetcode_And_I_Gonna_Die cb = new CombatWithLeetcode_And_I_Gonna_Die();
 
