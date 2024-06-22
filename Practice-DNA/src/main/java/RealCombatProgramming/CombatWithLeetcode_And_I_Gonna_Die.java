@@ -796,8 +796,46 @@ public class CombatWithLeetcode_And_I_Gonna_Die {
         return result.toString();
     }
 
+    public String addStrings(String num1, String num2) {
+        int maxLength = Math.max(num1.length(), num2.length());
+        StringBuilder result = new StringBuilder();
+        int carry = 0;
+
+        for (int i = 0; i < maxLength; i++) {
+            int digit1 = (i < num1.length()) ? Character.getNumericValue(num1.charAt(num1.length() - 1 - i)) : 0;
+            int digit2 = (i < num2.length()) ? Character.getNumericValue(num2.charAt(num2.length() - 1 - i)) : 0;
+
+            int sum = digit1 + digit2 + carry;
+            carry = sum / 10;
+            result.insert(0, sum % 10);
+        }
+        if(carry > 0) result.insert(0, carry);
+
+        return result.toString();
+    }
+
+    public String reverseStr(String s, int k) {
+        StringBuilder result = new StringBuilder(s);
+        for(int i = 0; i < s.length(); i += 2*k){
+            int end = Math.min(i + k, s.length());
+            reverse(result, i, end - 1);
+        }
+        return result.toString();
+    }
+
+        private static void reverse(StringBuilder result, int left, int right) {
+            while (left < right) {
+                char temp = result.charAt(left);
+                result.setCharAt(left, result.charAt(right));
+                result.setCharAt(right, temp);
+                left++;
+                right--;
+            }
+        }
+
+
     public static void main(String[] args){
         CombatWithLeetcode_And_I_Gonna_Die cb = new CombatWithLeetcode_And_I_Gonna_Die();
-        cb.reverseWords("Let's take LeetCode contest");
+        System.out.println(cb.reverseStr("abcdefgg", 3));
     }
 }
