@@ -657,8 +657,147 @@ public class CombatWithLeetcode_And_I_Gonna_Die {
         return Math.min(minDepth(root.right), minDepth(root.left)) + 1;
     }*/
 
+    public int jump2() {
+        int[] nums = new int[]{1,2,3};
+
+        if(nums.length == 1) return 0;
+        int count = 0, current = 0, pos = 0;
+        for(int i = 0; i < nums.length; i++){
+            pos = Math.max(pos, nums[i] + 1);
+            if(i == current){
+                System.out.println(nums[current]);
+                count++;
+                current = pos;
+                if(current > nums.length - 1) break;
+            }
+        }
+        return count;
+    }
+
+    public int jump(int[] nums) {
+        int left = 0, right = 0, count = 0;
+        while(right < nums.length - 1){
+            int temp = 0;
+            for(int i = left; i <= right; i++){
+                temp = Math.max(temp, nums[i] + i);
+            }
+            left = right + 1;
+            right = temp;
+            ++count;
+        }
+        return count;
+    }
+
+    public void testing(){
+        String s = " ";
+        if(s.equals(" ") || s.isEmpty()) System.out.println(true);
+    }
+
+    public int lengthOfLongestSubstring(String s) {
+        if (s.length() == 1) return 1;
+        if (s.equals("")) return 0;
+        Map<Character, Integer> allChar = new HashMap<>();
+        int count = 0, maxCount = 0;
+        for(int i = 0; i < s.length(); i++){
+            if(allChar.containsKey(s.charAt(i))){
+                i = allChar.get(s.charAt(i)) + 1;
+                allChar.clear();
+                count = 0;
+            }
+            allChar.put(s.charAt(i), i);
+            count++;
+            if(count > maxCount) maxCount = count;
+        }
+        return maxCount;
+    }
+
+    public int lengthOfLongestSubstringFaster(String s) {
+        Map<Character, Integer> map = new HashMap<>();
+        int start = 0, len = 0;
+        for(int end = 0; end < s.length(); end++){
+            char c = s.charAt(end);
+            if(map.containsKey(c))
+                if(start <= map.get(c))
+                    start = map.get(c)+1;
+            len = Math.max(len, end-start+1);
+            map.put(c,end);
+        }
+        return len;
+    }
+
+    public int[] intersection(int[] nums1, int[] nums2) {
+        Set<Integer> result = new HashSet<>();
+        Map<Integer, Integer> array1 = new HashMap<>();
+        for(int i = 0; i < nums1.length; i++)
+            array1.put(nums1[i], i);
+        for(int i = 0; i < nums2.length; i++)
+            if(array1.containsKey(nums2[i]))
+                result.add(nums2[i]);
+        int[] finalResult = new int[result.size()];
+        int i = 0;
+        for(int num : result)
+            finalResult[i++] = num;
+        return finalResult;
+    }
+
+    // Thử chơi thôi, chứ tôi còn nghĩ nó chạy sai cơ
+    public int addDigits(int num) {
+        int result = oneDigit(num);
+        return result;
+    }
+
+        public int oneDigit(int num){
+            int result = 0;
+            while (num!=0){
+                result += num % 10;
+                num /= 10;
+            }
+            if(result > - 10 && result < 10) return result;
+            return oneDigit(result);
+        }
+
+    public String reverseVowels(String s) {
+        StringBuilder result = new StringBuilder(s);
+        Stack<Character> str = new Stack<>();
+        for(int i = 0; i < s.length(); i++){
+            char c = s.charAt(i);
+            if (isVowel(c)) {
+                str.push(c);
+            }
+        }
+        for(int i = 0; i < result.length(); i++){
+            char c = result.charAt(i);
+            if (isVowel(c)) {
+                result.setCharAt(i, str.pop());
+            }
+        }
+        return result.toString();
+    }
+        private static boolean isVowel(char c) {
+            switch (c) {
+                case 'a': case 'e': case 'i': case 'o': case 'u':
+                case 'A': case 'E': case 'I': case 'O': case 'U':
+                    return true;
+                default:
+                    return false;
+            }
+        }
+
+    //Lưu ý: biểu thức chính quy sẽ chậm hơn bình thường nếu như dùng nó để so sánh
+    public String reverseWords(String s) {
+        StringBuilder result = new StringBuilder();
+        String[] words = s.split(" ");
+        for (String word : words){
+            StringBuilder reversedWord = new StringBuilder(word);
+            result.append(reversedWord.reverse().toString()).append(" ");
+        }
+        if (result.length() > 0)
+            result.setLength(result.length() - 1);
+        return result.toString();
+    }
+
     public static void main(String[] args){
         CombatWithLeetcode_And_I_Gonna_Die cb = new CombatWithLeetcode_And_I_Gonna_Die();
-
+        cb.reverseWords("Let's take LeetCode contest");
     }
 }
