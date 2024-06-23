@@ -833,66 +833,6 @@ public class CombatWithLeetcode_And_I_Gonna_Die {
             }
         }
 
-    public void moveZeroes(int[] nums) {
-        int count = 0;
-        for (int i = 0; i < nums.length; i++)
-            if (nums[i] == 0)
-                mergeSort(nums);
-    }
-
-        public static void mergeSort(int[] array) {
-            int length = array.length;
-            if (length <= 1)
-                return;
-
-            int middle = length / 2;
-            int[] leftArray = new int[middle];
-            int[] rightArray = new int[length - middle];
-
-            int i = 0;// left array
-            int j = 0;// right array
-
-            for (; i < length; i++) {
-                if (i < middle) {
-                    leftArray[i] = array[i];
-                } else {
-                    rightArray[j] = array[i];
-                    j++;
-                }
-            }
-            mergeSort(leftArray);
-            mergeSort(rightArray);
-            merge(leftArray, rightArray, array);
-        }
-
-        public static void merge(int[] leftArray, int[] rightArray, int[] array) {
-            int leftSize = leftArray.length;
-            int rightSize = rightArray.length;
-            int i = 0, l = 0, r = 0; //
-
-            while (l < leftSize && r < rightSize) {
-                if (leftArray[l] != 0 || rightArray[r] == 0) {
-                    array[i] = leftArray[l];
-                    l++;
-                } else {
-                    array[i] = rightArray[r];
-                    r++;
-                }
-                i++;
-            }
-
-            while (l < leftSize) {
-                array[i] = leftArray[l];
-                i++;
-                l++;
-            }
-
-            while (r < rightSize) {
-                array[i] = rightArray[r];
-                i++;
-                r++;
-            }
-        }
 
     //https://www.youtube.com/watch?v=56TxHMG0qhQ
     public double findMaxAverage(int[] nums, int k) {
@@ -909,9 +849,67 @@ public class CombatWithLeetcode_And_I_Gonna_Die {
         return (double) maxSum / k;
     }
 
+    public List<List<Integer>> threeSum(int[] nums) {
+        List<List<Integer>> result = new ArrayList<>();
+        Arrays.sort(nums);
+        for(int num : nums) System.out.println(num + " ");
+        for(int i = 1; i < nums.length - 1; i++){
+            int low = nums[i-1];
+            int height = nums[i+1];
+            if(low + height + nums[i] == 0){
+                result.add(Arrays.asList(low, nums[i], height));
+            }
+        }
+        return result;
+    }
+
+    public int singleNumberII(int[] nums) {
+        if (nums == null || nums.length == 0) return -1;
+
+        int result = 0;
+        int[] bits = new int[32];
+
+        for(int i=0; i<32; i++){
+            for(int j=0; j<nums.length; j++){
+                bits[i] += nums[j] >> i & 1;
+                bits[i] %= 3;
+            }
+            result |= (bits[i] << i);
+        }
+        return result;
+    }
+
+    public void moveZeroes(int[] nums) {
+        if(nums.length == 1) return;
+        int countZero = 0;
+        for(int i = 0; i < nums.length; i++){
+            if(nums[i] != 0){
+                nums[countZero] = nums[i];
+                countZero++;
+            }
+        }
+        while(countZero < nums.length){
+            nums[countZero] = 0;
+            countZero++;
+        }
+    }
+
+    public String reverseWordsMedium(String s) {
+        StringBuilder result = new StringBuilder();
+        s = s.replaceAll("\\s+", " ").trim();
+        System.out.print(s);
+        String[] words = s.split(" ");
+        for (String word : words){
+            result.insert(0, word.toString()+ " ");
+        }
+        if (result.length() > 0)
+            result.setLength(result.length() - 1);
+
+        return result.toString();
+    }
 
     public static void main(String[] args){
         CombatWithLeetcode_And_I_Gonna_Die cb = new CombatWithLeetcode_And_I_Gonna_Die();
-        System.out.println(cb.findMaxAverage(new int[]{1,12,-5,-6,50,3}, 4));
+        cb.moveZeroes(new int[] {1,2});
     }
 }
