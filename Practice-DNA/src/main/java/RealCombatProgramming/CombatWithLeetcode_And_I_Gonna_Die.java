@@ -833,9 +833,85 @@ public class CombatWithLeetcode_And_I_Gonna_Die {
             }
         }
 
+    public void moveZeroes(int[] nums) {
+        int count = 0;
+        for (int i = 0; i < nums.length; i++)
+            if (nums[i] == 0)
+                mergeSort(nums);
+    }
+
+        public static void mergeSort(int[] array) {
+            int length = array.length;
+            if (length <= 1)
+                return;
+
+            int middle = length / 2;
+            int[] leftArray = new int[middle];
+            int[] rightArray = new int[length - middle];
+
+            int i = 0;// left array
+            int j = 0;// right array
+
+            for (; i < length; i++) {
+                if (i < middle) {
+                    leftArray[i] = array[i];
+                } else {
+                    rightArray[j] = array[i];
+                    j++;
+                }
+            }
+            mergeSort(leftArray);
+            mergeSort(rightArray);
+            merge(leftArray, rightArray, array);
+        }
+
+        public static void merge(int[] leftArray, int[] rightArray, int[] array) {
+            int leftSize = leftArray.length;
+            int rightSize = rightArray.length;
+            int i = 0, l = 0, r = 0; //
+
+            while (l < leftSize && r < rightSize) {
+                if (leftArray[l] != 0 || rightArray[r] == 0) {
+                    array[i] = leftArray[l];
+                    l++;
+                } else {
+                    array[i] = rightArray[r];
+                    r++;
+                }
+                i++;
+            }
+
+            while (l < leftSize) {
+                array[i] = leftArray[l];
+                i++;
+                l++;
+            }
+
+            while (r < rightSize) {
+                array[i] = rightArray[r];
+                i++;
+                r++;
+            }
+        }
+
+    //https://www.youtube.com/watch?v=56TxHMG0qhQ
+    public double findMaxAverage(int[] nums, int k) {
+        int sum = 0;
+        for(int i = 0; i < k; i++)
+            sum += nums[i];
+        int maxSum = sum;
+        int startIndex = 0; int endIndex = k;
+        while (endIndex < nums.length){
+            sum -= nums[startIndex]; startIndex++;
+            sum += nums[endIndex]; endIndex++;
+            maxSum = Math.max(maxSum, sum);
+        }
+        return (double) maxSum / k;
+    }
+
 
     public static void main(String[] args){
         CombatWithLeetcode_And_I_Gonna_Die cb = new CombatWithLeetcode_And_I_Gonna_Die();
-        System.out.println(cb.reverseStr("abcdefgg", 3));
+        System.out.println(cb.findMaxAverage(new int[]{1,12,-5,-6,50,3}, 4));
     }
 }
