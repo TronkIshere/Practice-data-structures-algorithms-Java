@@ -959,8 +959,57 @@ public class CombatWithLeetcode_And_I_Gonna_Die {
         return newHead;
     }*/
 
+    public int[][] modifiedMatrix(int[][] matrix) {
+        int rows = matrix[0].length;
+        int cols = matrix.length;
+        for(int i = rows - 1; i >= 0; i--){
+            int max = 0;
+            for(int j = cols - 1; j >= 0; j--)
+                if(matrix[j][i] > max) max = matrix[j][i];
+            for(int j = cols - 1; j >= 0; j--)
+                if(matrix[j][i] == -1) matrix[j][i] = max;
+        }
+        return matrix;
+    }
+
+    public boolean isValid3136(String word) {
+        if(word.length() < 3) return false;
+        String specialCharacters = "!@#$%^&*()_+[]{}|;:',.<>?/~`-=\\\"";
+        String Vowel = "AEIOUaeiou"; int vowelCount = 0, consonantCount = 0;
+        for (int i = 0; i < word.length(); i++) {
+            char ch = word.charAt(i);
+            if (specialCharacters.indexOf(ch) != -1) return false;
+            if (Vowel.indexOf(ch) != -1) vowelCount++;
+            else if (Character.isLetter(ch)) consonantCount++;
+        }
+        if (vowelCount > 0 && consonantCount > 0) return true;
+        else return false;
+    }
+
+    public String triangleType(int[] nums) {
+        if (nums[0] + nums[1] <= nums[2]
+                || nums[0] + nums[2] <= nums[1]
+                || nums[1] + nums[2] <= nums[0])
+            return "none";
+        int count = 0; int result = 0;
+        for (int i = 0; i < nums.length - 1; i++) {
+            for (int j = i + 1; j < nums.length; j++) {
+                if (nums[i] == nums[j])
+                    count++;
+            }
+            if(count > result) result = count;
+            count = 0;
+        }
+        switch (result) {
+            case 0: return "scalene";
+            case 1: return "isosceles";
+            case 2: return "equilateral";
+        }
+        return "none";
+    }
+
     public static void main(String[] args){
         CombatWithLeetcode_And_I_Gonna_Die cb = new CombatWithLeetcode_And_I_Gonna_Die();
-        cb.moveZeroes(new int[] {1,2});
+        cb.triangleType(new int[] {9,4,9});
     }
 }
