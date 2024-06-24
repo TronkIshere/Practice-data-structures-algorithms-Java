@@ -1008,8 +1008,86 @@ public class CombatWithLeetcode_And_I_Gonna_Die {
         return "none";
     }
 
+    public List<Integer> findPeaks(int[] mountain) {
+        List list = new ArrayList<>();
+        if (mountain.length < 3) return list;
+        for(int i = 1; i < mountain.length-1; i++){
+            if(mountain[i] > mountain[i-1] && mountain[i] > mountain[i+1])
+                list.add(i);
+        }
+        return list;
+    }
+
+    public int[][] construct2DArray(int[] original, int m, int n) {
+        if(m * n != original.length) return new int[0][0];
+        int index = 0;
+        int[][] result = new int[m][n];
+        for(int i = 0; i < m; i++){
+            for(int j = 0; j < n; j++){
+                result[i][j] = original[index];
+                index++;
+            }
+        }
+        return result;
+    }
+
+    public boolean divideArray(int[] nums) {
+        int pairs = 0;
+        Set<Integer> set = new HashSet<>();
+        for(int i = 0; i < nums.length; i++){
+            if(set.contains(nums[i])){
+                set.remove(nums[i]);
+                pairs++;
+            } else set.add(nums[i]);
+        }
+        if(pairs == nums.length/2) return true;
+        else return false;
+    }
+
+    public int findClosestNumber(int[] nums) {
+        if(nums.length == 1) return nums[0];
+        Arrays.sort(nums);
+        int index = binarySearchToZero(nums, 0);
+        if (index + 1 < nums.length) {
+            if(Math.abs(nums[index + 1]) <= Math.abs(nums[index])) return nums[index + 1];
+            return nums[index];
+        }
+        return nums[index];
+    }
+
+        int binarySearchToZero(int arr[], int x)
+        {
+            int low = 0, high = arr.length - 1;
+            int mid = 0;
+            while (low <= high) {
+                mid = low + (high - low) / 2;
+                if (arr[mid] == x)
+                    return mid;
+                if (arr[mid] < x)
+                    low = mid + 1;
+                else
+                    high = mid - 1;
+            }
+            if (low >= arr.length) return high;
+            if (high < 0) return low;
+            return (Math.abs(arr[low]) < Math.abs(arr[high])) ? low : high;
+        }
+
+    public int findClosestNumberFaster(int[] nums) {
+        int m = Integer.MAX_VALUE, closestNum = 0;
+        for(int num : nums){
+            if(Math.abs(num) < m){
+                m = Math.abs(nums);
+                closestNum = num;
+            } else if (Math.abs(num) == m && num > closestNum) {
+                closestNum = num;
+            }
+        }
+        return closestNum;
+    }
+
     public static void main(String[] args){
         CombatWithLeetcode_And_I_Gonna_Die cb = new CombatWithLeetcode_And_I_Gonna_Die();
-        cb.triangleType(new int[] {9,4,9});
+        System.out.println(cb.findClosestNumber(new int[] {61488,18221,-1321,90249,-62158,55128,-93476,53905,57644,24630,89599,-95795,-14891,-60298,17690,99022,-24006,-89156,80135,-46303,18812,59924,32024,82924,-47519,-77086,1763,68618,53629,-56957,95485,99630,-7977,31164,94481,-80239,-57749,-3319,-58231,-94841,-19292,33200,-31446,-3528,2229,74241,-19992,-91852,-28073,31453,-74484,35491,38870,-9499,39838,87369,21123,-38616,-89277,-14541,-81586,-18569,-58242,-71216,10816,15086,-10519,51080,53257,-4912,-37142,-16723,-69795,54937,-24920,68970,-10010,-81717,36203,-67939,73877,-58258,-57183,36637,91518,-8492,-57476,50523,62462,73152,-9511,-66761,28333,-87163,5187}));
     }
 }
