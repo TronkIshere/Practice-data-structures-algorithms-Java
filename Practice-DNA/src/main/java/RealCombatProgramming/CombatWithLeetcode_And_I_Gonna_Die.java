@@ -1077,7 +1077,7 @@ public class CombatWithLeetcode_And_I_Gonna_Die {
         int m = Integer.MAX_VALUE, closestNum = 0;
         for(int num : nums){
             if(Math.abs(num) < m){
-                m = Math.abs(nums);
+                m = Math.abs(num);
                 closestNum = num;
             } else if (Math.abs(num) == m && num > closestNum) {
                 closestNum = num;
@@ -1086,8 +1086,83 @@ public class CombatWithLeetcode_And_I_Gonna_Die {
         return closestNum;
     }
 
+    // bài được tối ưu của devanshrwat
+    public int[] smallerNumbersThanCurrent(int[] nums) {
+        int res[] = new int[nums.length];
+        int freq[] = new int[101];
+        // frequency stored
+        for(int i=0;i<nums.length;i++){
+            freq[nums[i]]++;
+        }
+        //running sum
+        for(int i=1;i<101;i++){
+            freq[i] += freq[i-1];
+        }
+        // store answer
+        for(int i=0;i<nums.length;i++){
+            if(nums[i]==0){
+                res[i] =0;
+            }else{
+                res[i] = freq[nums[i]-1];
+            }
+        }
+        return res;
+    }
+
+    public String replaceWords(List<String> dictionary, String sentence) {
+        Set<String> set = new HashSet<>();
+        for(String word : dictionary) set.add(word);
+        StringBuilder result = new StringBuilder();
+        String[] words = sentence.split(" ");
+
+        for(int j = 0; j < words.length; j++){
+            String word  = words[j];
+            for(int i = 0; i < word.length(); i++){
+                if(set.contains(word.substring(0,i))){
+                    words[j] = word.substring(0, i);
+                    break;
+                }
+            }
+        }
+        for (String word : words){
+            result.append(word).append(" ");
+        }
+        if (result.length() > 0)
+            result.setLength(result.length() - 1);
+        return result.toString();
+    }
+
+    //By chicm
+    public boolean searchMatrix(int[][] matrix, int target) {
+        if(matrix == null || matrix.length < 1 || matrix[0].length <1) {
+            return false;
+        }
+        int col = matrix[0].length-1;
+        int row = 0;
+        while(col >= 0 && row <= matrix.length-1) {
+            if(target == matrix[row][col]) {
+                return true;
+            } else if(target < matrix[row][col]) {
+                col--;
+            } else if(target > matrix[row][col]) {
+                row++;
+            }
+        }
+        return false;
+    }
+
+    public List<List<Integer>> combine(int n, int k) {
+        List<List<Integer>> result = new ArrayList<>();
+        for(int i = 1; i <= n - 1; i++){
+            for(int j = i + 1; j <= n; j++){
+                result.add(Arrays.asList(i, j));
+            }
+        }
+        return result;
+    }
+
     public static void main(String[] args){
         CombatWithLeetcode_And_I_Gonna_Die cb = new CombatWithLeetcode_And_I_Gonna_Die();
-        System.out.println(cb.findClosestNumber(new int[] {61488,18221,-1321,90249,-62158,55128,-93476,53905,57644,24630,89599,-95795,-14891,-60298,17690,99022,-24006,-89156,80135,-46303,18812,59924,32024,82924,-47519,-77086,1763,68618,53629,-56957,95485,99630,-7977,31164,94481,-80239,-57749,-3319,-58231,-94841,-19292,33200,-31446,-3528,2229,74241,-19992,-91852,-28073,31453,-74484,35491,38870,-9499,39838,87369,21123,-38616,-89277,-14541,-81586,-18569,-58242,-71216,10816,15086,-10519,51080,53257,-4912,-37142,-16723,-69795,54937,-24920,68970,-10010,-81717,36203,-67939,73877,-58258,-57183,36637,91518,-8492,-57476,50523,62462,73152,-9511,-66761,28333,-87163,5187}));
+        cb.combine(4, 2);
     }
 }
