@@ -1161,8 +1161,63 @@ public class CombatWithLeetcode_And_I_Gonna_Die {
         return result;
     }
 
+    /*public ListNode removeNthFromEnd(ListNode head, int n) {
+
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+        ListNode mainPtr = dummy;
+        ListNode refPtr = dummy;
+
+        for (int i = 0; i <= n; i++)
+            refPtr = refPtr.next;
+
+        while (refPtr != null) {
+            refPtr = refPtr.next;
+            mainPtr = mainPtr.next;
+        }
+        mainPtr.next = mainPtr.next.next;
+        return dummy.next;
+    }
+    }*/
+
+    public List<String> fizzBuzz(int n) {
+        List<String> result = new ArrayList<>();
+        for(int i = 1; i <=n; i++){
+            if(i%3==0 && i%5==0) result.add("FizzBuzz");
+            else if(i%3==0) result.add("Fizz");
+            else if(i%5==0) result.add("Buzz");
+            else result.add(String.valueOf(i));
+        }
+
+        return result;
+    }
+
+    public char findTheDifference(String s, String t) {
+        int S = s.length();
+        int T = t.length();
+        int n = Math.min(S, T);
+        int i;
+        for(i = 0; i < n; i++){
+            if(s.charAt(i) != t.charAt(i))
+                return s.charAt(i);
+        }
+        if(S > T) return s.charAt(s.length()-1);
+        else return t.charAt(t.length()-1);
+    }
+
+    public int majorityElement(int[] nums) {
+        if(nums.length == 1) return nums[0];
+        int count = 0; int majority = nums[0];
+        for(int i = 0; i < nums.length; i++){
+            if(count == 0) majority = nums[i];
+            if(nums[i] == majority) count++;
+            else count -= 1;
+        }
+        return majority;
+    }
+
     public static void main(String[] args){
         CombatWithLeetcode_And_I_Gonna_Die cb = new CombatWithLeetcode_And_I_Gonna_Die();
-        cb.combine(4, 2);
+        cb.fizzBuzz(15);
     }
 }
