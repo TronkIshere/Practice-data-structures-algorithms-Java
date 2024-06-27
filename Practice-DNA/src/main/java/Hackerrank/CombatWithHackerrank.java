@@ -21,20 +21,32 @@ public class CombatWithHackerrank {
     }
 
     public static String getSmallestAndLargest(String s, int k) {
-        String smallest = "";
-        String largest = "";
+        String smallest = s.substring(0, k);
+        String largest = s.substring(0, k);
 
-        for(int i = 0; i < s.length()-k; i++){
-            String temp = s.substring(i, i+k);
-            if(temp.compareTo(largest) >= 0) largest = temp;
-            if(temp.compareTo(smallest) < 0) smallest = temp;
+        for(int i = 1; i <= s.length() - k; i++){
+            String currStr = s.substring(i, i + k);
+            if (largest.compareTo(currStr) < 0)
+                largest = currStr;
+            if (smallest.compareTo(currStr) > 0)
+                smallest = currStr;
         }
-
         return smallest + "\n" + largest;
+    }
+
+    public static void StringTokens(String[] args) {
+        Scanner scan = new Scanner(System.in);
+        String s = scan.nextLine();
+        String[] splitString = (s.replaceAll("^[\\W+\\s+]", "").split("[\\s!,?._'@]+"));
+        System.out.println(splitString.length);
+        for (String string : splitString) {
+            System.out.println(string);
+        }
+        scan.close();
     }
 
     public static void main(String[] args) {
         CombatWithHackerrank cb = new CombatWithHackerrank();
-        getSmallestAndLargest("welcometojava", 3);
+        System.out.println(getSmallestAndLargest("welcometojava", 3));
     }
 }

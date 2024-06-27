@@ -1192,19 +1192,6 @@ public class CombatWithLeetcode_And_I_Gonna_Die {
         return result;
     }
 
-    public char findTheDifference(String s, String t) {
-        int S = s.length();
-        int T = t.length();
-        int n = Math.min(S, T);
-        int i;
-        for(i = 0; i < n; i++){
-            if(s.charAt(i) != t.charAt(i))
-                return s.charAt(i);
-        }
-        if(S > T) return s.charAt(s.length()-1);
-        else return t.charAt(t.length()-1);
-    }
-
     public int majorityElement(int[] nums) {
         if(nums.length == 1) return nums[0];
         int count = 0; int majority = nums[0];
@@ -1216,8 +1203,44 @@ public class CombatWithLeetcode_And_I_Gonna_Die {
         return majority;
     }
 
+    public boolean canConstruct(String ransomNote, String magazine) {
+        StringBuilder result = new StringBuilder(ransomNote);
+        for(int i = 0; i < magazine.length(); i++){
+            if(result.indexOf(String.valueOf(magazine.charAt(i))) >= 0){
+                result.deleteCharAt(result.indexOf(String.valueOf(magazine.charAt(i))));
+            }
+        }
+        if(result.isEmpty()) return true;
+        else return false;
+    }
+
+    public boolean canConstructButFaster(String ransomNote, String magazine) {
+        if (ransomNote.length() > magazine.length()) return false;
+        int[] alphabets_counter = new int[26];
+
+        for (char c : magazine.toCharArray())
+            alphabets_counter[c-'a']++;
+
+        for (char c : ransomNote.toCharArray()){
+            if (alphabets_counter[c-'a'] == 0) return false;
+            alphabets_counter[c-'a']--;
+        }
+        return true;
+    }
+
+    public char findTheDifference(String s, String t) {
+        int sum = 0;
+        for (int i = 0; i < t.length(); i++) {
+            sum += t.charAt(i);
+        }
+        for (int i = 0; i < s.length(); i++) {
+            sum -= s.charAt(i);
+        }
+        return (char) sum;
+    }
+
     public static void main(String[] args){
         CombatWithLeetcode_And_I_Gonna_Die cb = new CombatWithLeetcode_And_I_Gonna_Die();
-        cb.fizzBuzz(15);
+        System.out.println(cb.findTheDifference("aab", "baa"));
     }
 }
