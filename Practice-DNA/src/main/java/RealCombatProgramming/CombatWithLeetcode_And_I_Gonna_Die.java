@@ -1230,17 +1230,67 @@ public class CombatWithLeetcode_And_I_Gonna_Die {
 
     public char findTheDifference(String s, String t) {
         int sum = 0;
-        for (int i = 0; i < t.length(); i++) {
-            sum += t.charAt(i);
-        }
-        for (int i = 0; i < s.length(); i++) {
-            sum -= s.charAt(i);
-        }
+        for (int i = 0; i < t.length(); i++) sum += t.charAt(i);
+        for (int i = 0; i < s.length(); i++) sum -= s.charAt(i);
         return (char) sum;
     }
 
+    public String toLowerCase(String s) {
+        s = s.toLowerCase();
+        return s;
+    }
+
+    public int[] twoSumII(int[] numbers, int target) {
+        int[] result = new int[2];
+        Map<Integer, Integer> map = new HashMap<>();
+        for(int i = 0; i < numbers.length; i++){
+            if(!map.containsKey(target - numbers[i])){
+                map.put(numbers[i], i + 1);
+            } else{
+                result[0] = map.get(target - numbers[i]);
+                result[1] = i + 1;
+            }
+        }
+        for(int i : result) System.out.println(i);
+        return result;
+    }
+
+    public int[] twoSumIIButFaster(int[] numbers, int target) {
+        int left = 0;
+        int right = numbers.length-1;
+        while(left < right){
+            int total = numbers[left] + numbers[right];
+            if(total == target) return new int[] {left+1, right+1};
+            if(total < target) left++;
+            else right--;
+        }
+        return new int[] {-1, -1};
+    }
+
+
+    //nums[i] == nums[j]
+    //abs(i - j) <= k
+    public boolean containsNearbyDuplicateII(int[] nums, int k) {
+        Map<Integer, Integer> map = new HashMap<>();
+        for(int i = 0; i < nums.length; i++){
+            if(map.containsKey(nums[i])){
+                if(i - map.get(nums[i]) <= k) return true;
+            }
+            map.put(nums[i], i);
+        }
+        return false;
+    }
+
+    /*public int countNodes(TreeNode root) {
+        if (root == null)
+            return 0;
+        int leftCount = countNodes(root.left);
+        int rightCount = countNodes(root.right);
+        return 1 + leftCount + rightCount;
+    }*/
+
     public static void main(String[] args){
         CombatWithLeetcode_And_I_Gonna_Die cb = new CombatWithLeetcode_And_I_Gonna_Die();
-        System.out.println(cb.findTheDifference("aab", "baa"));
+
     }
 }
