@@ -430,4 +430,33 @@ public class Leetcode_String {
         s = s.toLowerCase();
         return s;
     }
+
+    public boolean detectCapitalUse(String word) {
+        int n = word.length();
+        if (n == 0) return true;
+
+        if (word.equals(word.toUpperCase())) return true;
+        if (word.equals(word.toLowerCase())) return true;
+        if (Character.isUpperCase(word.charAt(0))
+                && word.substring(1).equals(word.substring(1).toLowerCase())) return true;
+        return false;
+    }
+
+    public boolean isAnagram(String s, String t) {
+        if (s.length() != t.length()) return false;
+        int[] count = new int[26];
+        for (int i = 0; i < s.length(); i++) {
+            count[s.charAt(i) - 'a']++; //mã ASCII từ 97 đến 122
+            count[t.charAt(i) - 'a']--; //trừ a để lấy giá trị mảng hiện tại
+        }
+        for (int i = 0; i < 26; i++)
+            if (count[i] != 0) return false;
+
+        return true;
+    }
+
+    public static void main(String[] args){
+        Leetcode_String lc = new Leetcode_String();
+        lc.isAnagram("ac", "bb");
+    }
 }

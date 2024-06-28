@@ -3,7 +3,7 @@ package RealCombatProgramming;
 import java.util.LinkedList;
 import java.util.List;
 
-public class leetcode_TreeNode {
+public class Leetcode_TreeNode {
     public class TreeNode {
         int val;
         TreeNode left;

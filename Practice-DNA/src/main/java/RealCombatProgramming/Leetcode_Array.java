@@ -574,4 +574,16 @@ public class Leetcode_Array {
             nums[i] = outputArray[i];
         }
     }
+
+    public int distributeCandies(int[] candyType) {
+        Set<Integer> set = new HashSet<>();
+        int halflength = candyType.length/2;
+        for(int n : candyType){
+            set.add(n);
+        }
+        if(set.size() >= halflength) return halflength;
+        else return set.size();
+    }
+
+
 }
