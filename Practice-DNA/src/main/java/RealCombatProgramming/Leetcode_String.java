@@ -455,8 +455,33 @@ public class Leetcode_String {
         return true;
     }
 
+    public String reversePrefix(String word, char ch) {
+        StringBuilder result = new StringBuilder();
+        for(int i = 0; i < word.length(); i++){
+            if(word.charAt(i) == ch){
+                result.append(word.substring(0, i+1)).reverse();
+                result.append(word.substring(i+1));
+                break;
+            }
+        }
+        if(!result.isEmpty()) return result.toString();
+        else return word;
+    }
+
+    public boolean isSubsequence(String s, String t) {
+        Queue<Character> queue = new LinkedList<>();
+        for(int i = 0; i < s.length(); i++)
+            queue.add(s.charAt(i));
+        for(int i = 0; i < t.length(); i++){
+            if(!queue.isEmpty() && t.charAt(i) == queue.peek())
+                queue.poll();
+            if(queue.isEmpty()) return true;
+        }
+        return queue.isEmpty();
+    }
+
     public static void main(String[] args){
         Leetcode_String lc = new Leetcode_String();
-        lc.isAnagram("ac", "bb");
+        System.out.println(lc.isSubsequence("acb", "ahbgdc"));
     }
 }

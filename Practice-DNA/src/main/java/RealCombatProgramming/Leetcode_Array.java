@@ -585,5 +585,38 @@ public class Leetcode_Array {
         else return set.size();
     }
 
+    public int findDuplicate(int[] nums) {
+        Set<Integer> set = new HashSet<>();
+        for(int i = 0; i < nums.length; i++){
+            if(set.contains(nums[i])) return nums[i];
+            else set.add(nums[i]);
+        }
+        return -1;
+    }
 
+    public int maxSubArray(int[] nums) {
+        int maxSum = Integer.MIN_VALUE;
+        int currentSum = 0;
+
+        for (int i = 0; i < nums.length; i++) {
+            currentSum += nums[i];
+            if (currentSum > maxSum) maxSum = currentSum;
+            if (currentSum < 0) currentSum = 0;
+        }
+        return maxSum;
+    }
+
+    public int arrangeCoins(int n) {
+        int result = 0;
+        while(n > result){
+            result++;
+            n -= result;
+        }
+        return result;
+    }
+
+    public static void main(String[] args){
+        Leetcode_Array lc = new Leetcode_Array();
+        System.out.println(lc.arrangeCoins(5));
+    }
 }
