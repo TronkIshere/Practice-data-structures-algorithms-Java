@@ -480,8 +480,46 @@ public class Leetcode_String {
         return queue.isEmpty();
     }
 
+    public String[] divideString(String s, int k, char fill) {
+        ArrayList<String> result = new ArrayList<>();
+        for(int i = 0; i < s.length(); i += k){
+            String substring;
+            if (i + k <= s.length()) {
+                substring = s.substring(i, i + k);
+            } else {
+                substring = s.substring(i);
+                while (substring.length() < k) {
+                    substring += fill;
+                }
+            }
+            result.add(substring);
+        }
+        return result.toArray(new String[0]);
+    }
+
+    public String[] divideStringButFaster(final String s, final int k, final char fill) {
+        final StringBuilder sb = new StringBuilder();
+        final String[] result = new String[s.length() / k + (s.length() % k == 0 ? 0 : 1)];
+        int idx = 0;
+        for(int i = 0; i < s.length(); ++i) {
+            sb.append(s.charAt(i));
+            if((i + 1) % k == 0) {
+                result[idx++] = sb.toString();
+                sb.setLength(0);
+            }
+        }
+
+        if(sb.length() > 0 && sb.length() < k) {
+            for(int i = sb.length(); i < k; ++i)
+                sb.append(fill);
+            result[idx] = sb.toString();
+        }
+
+        return result;
+    }
+
+
     public static void main(String[] args){
         Leetcode_String lc = new Leetcode_String();
-        System.out.println(lc.isSubsequence("acb", "ahbgdc"));
     }
 }

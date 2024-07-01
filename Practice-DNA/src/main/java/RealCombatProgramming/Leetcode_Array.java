@@ -615,8 +615,71 @@ public class Leetcode_Array {
         return result;
     }
 
+    public List<Integer> findDisappearedNumbers(int[] nums) {
+        List<Integer> result = new ArrayList<>();
+        Arrays.sort(nums);
+        for(int i = 0; i < nums.length-1; i++){
+            if(nums[i+1]- nums[i]>0) {
+                int temp = nums[i+1]- nums[i];
+                int a = 1;
+                while (a < temp){
+                    result.add(nums[i]+a);
+                    a++;
+                }
+            }
+        }
+        return result;
+    }
+
+    public int[] sortedSquares(int[] nums) {
+        for(int i = 0; i < nums.length; i++)
+            nums[i] = (int) Math.pow(nums[i], 2);
+        Arrays.sort(nums);
+        return nums;
+    }
+
+    public List<List<Integer>> generate(int numRows) {
+        List<List<Integer>> result = new ArrayList<>();
+        for(int i = 0; i < numRows; i++){
+            List<Integer> list = new ArrayList<>();
+            int k = 1;
+            for(int j = 0; j <= i; j++){
+                if (j == 0 || j == i) {
+                    list.add(1);
+                } else {
+                    k = k * (i - j + 1) / j;
+                    list.add(k);
+                }
+            }
+            result.add(list);
+        }
+        return result;
+    }
+
+    public int rangeBitwiseAnd(int left, int right) {
+        while (left < right) {
+            right = right & (right - 1);
+            System.out.println(right);
+            // sử dụng bitwise, giống như công thức tính mệnh đề
+        }
+        return right;
+    }
+
+    public int maxProfit(int[] prices) {
+        int buy = prices[0];
+        int profit = 0;
+        for (int i = 1; i < prices.length; i++) {
+            if (prices[i] < buy) {
+                buy = prices[i];
+            } else if (prices[i] - buy > profit) {
+                profit = prices[i] - buy;
+            }
+        }
+        return profit;
+    }
+
     public static void main(String[] args){
         Leetcode_Array lc = new Leetcode_Array();
-        System.out.println(lc.arrangeCoins(5));
+        lc.rangeBitwiseAnd(5, 7);
     }
 }

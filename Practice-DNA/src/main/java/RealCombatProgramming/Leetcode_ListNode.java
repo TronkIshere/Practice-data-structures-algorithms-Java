@@ -1,5 +1,7 @@
 package RealCombatProgramming;
 
+import java.util.ArrayList;
+
 public class Leetcode_ListNode {
     public class ListNode {
         int val;
@@ -168,5 +170,16 @@ public class Leetcode_ListNode {
         }
         mainPtr.next = mainPtr.next.next;
         return dummy.next;
+    }
+
+    public ListNode middleNode(ListNode head) {
+        ArrayList<ListNode> list = new ArrayList<>();
+        int length = 0;
+        while(head != null){
+            list.add(head);
+            head = head.next;
+            length++;
+        }
+        return list.get(length/2);
     }
 }
